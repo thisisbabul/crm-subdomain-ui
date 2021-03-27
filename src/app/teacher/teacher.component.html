@@ -1,0 +1,103 @@
+<div class="p-grid">
+  <div class="p-col-2 b-border">
+    <div class="p-grid p-p-4">
+      <p-button (click)="clickMyAccount()" label="My Account" styleClass="p-button-link"></p-button>
+    </div>
+    <div class="p-grid p-p-4">
+      <p-button (click)="clickStudentInfo()" label="Students Info" styleClass="p-button-link"></p-button>
+    </div>
+    <div class="p-grid p-p-4">
+      <p-button (click)="clickTeacherInfo()" label="Teachers Info" styleClass="p-button-link"></p-button>
+    </div>
+  </div>
+  <div class="p-col-10 b-border">
+    <div class="p-grid b-border">
+      <div class="p-col-10 p-text-center p-text-bold p-mt-2">
+        Teachers Information
+      </div>
+      <div class="p-col-2 p-text-right">
+        <p-button (click)="logout()" label="Logout" styleClass="p-button-link"></p-button>
+      </div>
+    </div>
+    <div class="p-grid p-p-4 p-justify-center">
+      <p-toast></p-toast>
+
+      <div class="card">
+        <p-table #dt [value]="teachers" [rows]="10" [paginator]="true" [rowHover]="true" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+          <ng-template pTemplate="caption">
+            <div class="p-d-flex p-ai-center p-jc-between">
+              <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"></button>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+              <th pSortableColumn="designation">Designation <p-sortIcon field="designation"></p-sortIcon></th>
+              <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
+              <th pSortableColumn="phone">Phone <p-sortIcon field="phone"></p-sortIcon></th>
+              <th>Action</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-teacher>
+            <tr>
+              <td>{{teacher.name}}</td>
+              <td>{{teacher.designation}}</td>
+              <td>{{teacher.email}}</td>
+              <td>{{teacher.phone}}</td>
+              <td>
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="editTeacher(teacher)"></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteTeacher(teacher)"></button>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between">
+              In total there are {{teachers ? teachers.length : 0 }} Teachers.
+            </div>
+          </ng-template>
+        </p-table>
+      </div>
+
+      <p-dialog [(visible)]="teacherDialog" [style]="{width: '450px'}" header="Add Teacher" [modal]="true" styleClass="p-fluid">
+        <ng-template pTemplate="content">
+          <div class="p-field">
+            <label for="name">Name</label>
+            <input type="text" pInputText id="name" [(ngModel)]="teacher.name" required autofocus />
+            <small class="p-invalid" *ngIf="submitted && !teacher.name">Name is required.</small>
+          </div>
+
+          <div class="p-field">
+            <label for="name">Designation</label>
+            <input type="text" pInputText id="name" [(ngModel)]="teacher.designation" required />
+            <small class="p-invalid" *ngIf="submitted && !teacher.designation">Designation is required.</small>
+          </div>
+
+          <div class="p-field">
+            <label for="name">Email</label>
+            <input type="text" pInputText id="name" [(ngModel)]="teacher.email" required />
+            <small class="p-invalid" *ngIf="submitted && !teacher.email">Email is required.</small>
+          </div>
+
+          <div class="p-field">
+            <label for="name">Phone</label>
+            <input type="text" pInputText id="name" [(ngModel)]="teacher.phone" required />
+            <small class="p-invalid" *ngIf="submitted && !teacher.phone">Phone is required.</small>
+          </div>
+
+          <div class="p-field" *ngIf="!isEditForm">
+            <label>Password</label>
+            <input type="password" pPassword id="password" [(ngModel)]="teacher.password" required />
+            <small class="p-invalid" *ngIf="submitted && !teacher.password">Password is required.</small>
+          </div>
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+          <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+          <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveTeacher()"></button>
+        </ng-template>
+      </p-dialog>
+
+      <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+    </div>
+  </div>
+</div>

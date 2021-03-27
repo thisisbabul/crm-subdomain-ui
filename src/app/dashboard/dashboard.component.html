@@ -1,0 +1,110 @@
+<div class="p-grid">
+  <div class="p-col-2 b-border">
+    <div class="p-grid p-p-4">
+      <p-button label="My Account" styleClass="p-button-link"></p-button>
+    </div>
+    <div class="p-grid p-p-4">
+      <p-button (click)="getStudentInfo()" label="Students Info" styleClass="p-button-link"></p-button>
+    </div>
+    <div class="p-grid p-p-4">
+      <p-button label="Teachers Info" styleClass="p-button-link"></p-button>
+    </div>
+  </div>
+  <div class="p-col-10 b-border">
+    <div class="p-grid b-border">
+      <div class="p-col-10 p-text-center p-text-bold p-mt-2">
+        Admin Dashboard
+      </div>
+      <div class="p-col-2 p-text-right">
+        <p-button (click)="logout()" label="Logout" styleClass="p-button-link"></p-button>
+      </div>
+    </div>
+
+    <div class="p-grid p-p-4">
+        <div class="p-col p-text-left">
+          <p-button (click)="openChangePasswordPopup()" label="Change Password" styleClass="p-button-link"></p-button>
+        </div>
+        <div class="p-col p-text-right">
+          <p-button (click)="showDialog()" label="Edit" styleClass="p-button-link"></p-button>
+        </div>
+    </div>
+    <div class="p-grid p-p-4 p-justify-center">
+      <div class="p-fluid">
+        <div class="p-field">
+          <label>First Name: {{user.firstName}}</label>
+        </div>
+        <div class="p-field">
+          <label>Last Name: {{user.lastName}}</label>
+        </div>
+        <div class="p-field">
+          <label>Date Of Birth: {{user.dob}}</label>
+        </div>
+        <div class="p-field">
+          <label>Phone: {{user.phone}}</label>
+        </div>
+        <div class="p-field">
+          <label>Email: {{user.email}}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p-dialog [(visible)]="display" styleClass="popup">
+  <p-header>
+    Edit Information
+  </p-header>
+  <div class="p-grid p-d-flex p-jc-center p-fluid p-formgrid">
+    <div class="p-fluid b-border p-p-4">
+
+      <div class="p-field">
+        <label>First Name</label>
+        <input type="text" pInputText class="p-inputtext-sm" [(ngModel)]="existUser.firstName">
+      </div>
+
+      <div class="p-field">
+        <label>Last Name</label>
+        <input type="text" pInputText class="p-inputtext-sm" [(ngModel)]="existUser.lastName">
+      </div>
+
+      <div class="p-field">
+        <label>Date of Birth</label>
+        <p-calendar appendTo="body" [(ngModel)]="existUser.dateOfBirth" [monthNavigator]="true" [yearNavigator]="true"></p-calendar>
+      </div>
+
+      <div class="p-field">
+        <label>Phone</label>
+        <input type="text" pInputText class="p-inputtext-sm" [(ngModel)]="existUser.phone">
+      </div>
+
+      <div class="p-field">
+        <label>Email</label>
+        <input type="text" pInputText class="p-inputtext-sm" [(ngModel)]="existUser.email">
+      </div>
+    </div>
+  </div>
+  <p-footer>
+    <button (click)="editUser()" pButton type="button" label="Save" ></button>
+  </p-footer>
+</p-dialog>
+
+
+<p-dialog [(visible)]="changePassword" styleClass="popup">
+  <p-header>
+    Change Password
+  </p-header>
+  <div class="p-grid p-d-flex p-jc-center p-fluid p-formgrid">
+    <div class="p-fluid b-border p-p-4">
+      <div class="p-field">
+        <label>New Password</label>
+        <input type="password" pPassword class="p-inputtext-sm"/>
+      </div>
+      <div class="p-field">
+        <label>Confirm Password</label>
+        <input [(ngModel)]="auth.password" type="password" pPassword class="p-inputtext-sm"/>
+      </div>
+    </div>
+  </div>
+  <p-footer>
+    <button (click)="changePasswordSubmit()" pButton type="button" label="Save" ></button>
+  </p-footer>
+</p-dialog>

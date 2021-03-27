@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+.b-border {
+  border: #DADBDC solid 1px !important;
+}
+
+.popup {
+  width: 28vw;
+}
+
+@media screen and (max-width: 40em) {
+  .popup {
+    width: 75vw;
+  }
+}
+
